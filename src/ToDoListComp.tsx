@@ -90,7 +90,7 @@ export default class ToDoListComp extends Component {
               })
             }
           />
-          <Button variant="outlined" onClick={this.addToDoHandler}>
+          <Button className='add-btn' variant="outlined" onClick={this.addToDoHandler}>
             Add
           </Button>
         </Box>
@@ -117,7 +117,7 @@ export default class ToDoListComp extends Component {
                 <TableRow key={index}>
                   <TableCell>{index + 1}</TableCell>
                   <TableCell>{item}</TableCell>
-                  <TableCell> <Button variant="outlined" size='small' onClick={()=>this.removeHandler(index)}>Remove</Button></TableCell>
+                  <TableCell> <Button className='remove-btn' variant="outlined" size='small' onClick={()=>this.removeHandler(index)}>Remove</Button></TableCell>
                 </TableRow>
               ))}
             </TableBody>
