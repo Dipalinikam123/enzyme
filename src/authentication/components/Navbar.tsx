@@ -9,22 +9,31 @@ import RegisterModel from '../modal/RegisterModel';
 
 interface MyState {
   open: boolean;
-  modalFlag: boolean
+  modalFlag: boolean;
+  loginState: {
+    email: string;
+    password: string;
+  };
 }
 
 export default class Navbar extends Component<{}, MyState> {
   state: MyState = {
     open: false,
-    modalFlag: false
+    modalFlag: false,
+
+    loginState: {
+      email: "",
+      password: ""
+    }
   };
 
   handleOpen = (): void => {
     this.setState({ open: true });
-     this.setState({modalFlag:false})
+    this.setState({ modalFlag: false })
   }
 
   handleClose = (): void => {
-    this.setState({modalFlag:false})
+    this.setState({ modalFlag: false })
     this.setState({ open: false });
   }
 
