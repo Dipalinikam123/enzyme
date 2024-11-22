@@ -10,4 +10,7 @@ test('renders learn react link', () => {
   expect(wrapper.exists()).toBe(true);
   expect(wrapper.exists('.App')).toEqual(true) // to check className
 
+  // expect(wrapper.find(ApiComponent).length).toBe(1);
+
+
 });

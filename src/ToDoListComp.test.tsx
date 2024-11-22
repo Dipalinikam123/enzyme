@@ -1,7 +1,7 @@
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import { Table, TableCell, TextField } from '@mui/material';
 import ToDoListComp from './ToDoListComp';
-import { Table, TableBody, TableCell, TableRow, TextField } from '@mui/material';
 
 configure({ adapter: new Adapter() });
 
@@ -25,8 +25,6 @@ describe('ToDoList Component', () => {
     const wrapper = shallow(<ToDoListComp />);
 
     wrapper.instance().componentDidMount();
-
-    // wrapper.update();
     expect(wrapper.state('todoArr')).toEqual(mockData);
 
   });

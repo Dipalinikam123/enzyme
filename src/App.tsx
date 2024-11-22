@@ -1,12 +1,17 @@
 import React from 'react';
 
 import './App.css';
-import ToDoListComp from './ToDoListComp'
+import ToDoListComp from './ToDoListComp';
+import ApiComponent from './ApiComponent';
+import Navbar from './authentication/components/Navbar';
+
 
 function App() {
   return (
     <div className="App">
-      <ToDoListComp/>
+      {/* <ToDoListComp/> */}
+      {/* <ApiComponent/> */}
+      <Navbar/>
     </div>
   );
 }
