@@ -19,21 +19,12 @@ describe('ToDoList Component', () => {
     expect(wrapper.state()).toEqual({ todoArr: [], todo: '' }) //to check state
   });
 
-  test('componentDidMount', () => {
-    const mockData = ['Task 1', 'Task 2', 'Task 3'];
-    Storage.prototype.getItem = jest.fn(() => JSON.stringify(mockData));
-    const wrapper = shallow(<ToDoListComp />);
-
-    wrapper.instance().componentDidMount();
-    expect(wrapper.state('todoArr')).toEqual(mockData);
-
-  });
-
   test('Table elements', () => {
     const wrapper = shallow(<ToDoListComp />);
     const table = wrapper.find(Table);
+    // console.log('---table **',table.debug())
     const expectedTexts = ['Id', 'List', 'Action'];
-
+    expect(expectedTexts).toHaveLength(3)
     table.find(TableCell).forEach((cell: any, index: any) => {
       expect(cell.text()).toBe(expectedTexts[index]);
     });
@@ -41,8 +32,8 @@ describe('ToDoList Component', () => {
 
   test('Add button', () => {
     const wrapper = shallow(<ToDoListComp />);
-    jest.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {});
-  
+    jest.spyOn(Storage.prototype, 'setItem').mockImplementation(() => { });
+
     wrapper.setState({ todo: 'New Task' });
 
     wrapper.find('.add-btn').simulate('click');
@@ -54,19 +45,19 @@ describe('ToDoList Component', () => {
   });
   test('alert when todo input is blank', () => {
     const wrapper = shallow(<ToDoListComp />);
-  
+
     global.alert = jest.fn();
-    jest.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {});
-  
-  
+    jest.spyOn(Storage.prototype, 'setItem').mockImplementation(() => { });
+
+
     wrapper.setState({ todoArr: [], todo: '' });
-  
+
     wrapper.find('.add-btn').simulate('click');
-  
-    expect(wrapper.state('todoArr')).toEqual([]); 
+
+    expect(wrapper.state('todoArr')).toEqual([]);
     expect(wrapper.state('todo')).toBe('');
     expect(global.alert).toHaveBeenCalledWith('Input is blank');
-  
+
     expect(localStorage.setItem).not.toHaveBeenCalled();
   });
 
@@ -78,18 +69,47 @@ describe('ToDoList Component', () => {
 
   test('removes the correct todo item', () => {
     const wrapper = shallow(<ToDoListComp />);
-  
+
     const mockTodos = ['Task 1', 'Task 2', 'Task 3'];
     wrapper.setState({ todoArr: mockTodos });
-  
-    jest.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {});
-  
+
+    jest.spyOn(Storage.prototype, 'setItem').mockImplementation(() => { });
+
     wrapper.find('.remove-btn').at(1).simulate('click');
-  
+
     expect(wrapper.state('todoArr')).toEqual(['Task 1', 'Task 3']);
-  
+
     expect(localStorage.setItem).toHaveBeenCalledWith('todoList', JSON.stringify(['Task 1', 'Task 3']));
-  
+
     jest.restoreAllMocks()
   });
+
+  test('componentDidMount', () => {
+    const mockData = ['Task 1', 'Task 2', 'Task 3'];
+    Storage.prototype.getItem = jest.fn(() => JSON.stringify(mockData));
+    const wrapper = shallow(<ToDoListComp />);
+
+    wrapper.instance().componentDidMount();
+    expect(wrapper.state('todoArr')).toEqual(mockData);
+
   });
+  test('componentDidUpdate', () => {
+    console.log = jest.fn();
+    const wrapper = shallow(<ToDoListComp />);
+    wrapper.instance().componentDidUpdate()
+    expect(console.log).toHaveBeenCalledWith('------componentDidUpdate----')
+  });
+  test('shouldComponentUpdate', () => {
+    console.log = jest.fn();
+    const wrapper = shallow(<ToDoListComp />);
+    wrapper.instance().shouldComponentUpdate()
+    expect(console.log).toHaveBeenCalledWith('------shouldComponentUpdate----')
+  });
+
+  test('componentDidCatch', () => {
+    console.log = jest.fn();
+    const wrapper = shallow(<ToDoListComp />);
+    wrapper.instance().componentDidCatch();
+    expect(console.log).toHaveBeenCalledWith('-----componentDidCatch-----');
+  });
+});

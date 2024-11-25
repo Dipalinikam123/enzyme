@@ -13,18 +13,22 @@ import {
   Typography,
 } from '@mui/material';
 
-interface MyState  {
+interface MyState {
   todoArr: string[];
   todo: string;
 };
 
+
 export default class ToDoListComp extends Component {
+
   state: MyState = {
     todoArr: [],
     todo: '',
   };
 
   componentDidMount() {
+    console.log('----componentDidMount-----')
+    // this.setState({todoArr:['a','b','c','d','e','f']})
     const getItem = localStorage.getItem('todoList');
     if (getItem) {
       this.setState({
@@ -32,6 +36,23 @@ export default class ToDoListComp extends Component {
       });
     }
   }
+  componentDidUpdate(prevProps: Readonly<{}>, prevState: Readonly<{}>, snapshot?: any): void {
+    console.log('------componentDidUpdate----');
+  };
+
+  shouldComponentUpdate(nextProps: Readonly<{}>, nextState: Readonly<{}>, nextContext: any): any {
+    console.log('------shouldComponentUpdate----');
+    return true; 
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
+    console.log('-----componentDidCatch-----')
+  }
+
+
+  // componentWillUnmount(): void {
+  //   console.log('------componentWillUnmount----');
+  // }
 
   addToDoHandler = () => {
     const { todoArr, todo } = this.state;
@@ -55,19 +76,20 @@ export default class ToDoListComp extends Component {
   };
 
 
-  removeHandler=(id:number)=>{
-  const removeItem=this.state.todoArr.filter((e,i)=> i !== id)
-  this.setState({
-    todoArr:removeItem
-  })
-  this.saveToLocalStorage(removeItem)
+  removeHandler = (id: number) => {
+    const removeItem = this.state.todoArr.filter((e, i) => i !== id)
+    this.setState({
+      todoArr: removeItem
+    })
+    this.saveToLocalStorage(removeItem)
   }
   render() {
+    console.log('-----render------')
     const { todo, todoArr } = this.state;
 
     return (
       <>
-        <h2>ToDo List</h2>
+       
         <Box
           sx={{
             marginTop: '20px',
@@ -117,7 +139,7 @@ export default class ToDoListComp extends Component {
                 <TableRow key={index}>
                   <TableCell>{index + 1}</TableCell>
                   <TableCell>{item}</TableCell>
-                  <TableCell> <Button className='remove-btn' variant="outlined" size='small' onClick={()=>this.removeHandler(index)}>Remove</Button></TableCell>
+                  <TableCell> <Button className='remove-btn' variant="outlined" size='small' onClick={() => this.removeHandler(index)}>Remove</Button></TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -127,3 +149,9 @@ export default class ToDoListComp extends Component {
     );
   }
 }
+
+
+// 1. ComponantDidMount => when componant is render =  immediately after mounting componant that is called only once when the component is mounted in the DOM.
+// 2. ComponentDidUpdate=> whenever state and props value getting change
+// 3.componentWillUnmount=. when component is destroy
+// 4.shouldComponentUpdate=.when new props or state are received. Returns a boolean value

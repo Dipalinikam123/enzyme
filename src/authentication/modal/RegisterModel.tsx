@@ -22,13 +22,35 @@ interface RegisterModelProps {
   handleOpen: () => void;
   handleClose: () => void;
   handleFlag: () => void;
+  registerHandler:()=> void;
+  loginHandler:()=> void;
   open: boolean;
   modalFlag: boolean;
+  registerState:{
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+  };
+  loginState:{
+    email:string;
+    password:string;
+  };
+  errorState: {
+    firstNameError: boolean;
+    lastNameError: boolean;
+    emailError: boolean,
+    passwordError: boolean
+  }
+  onRegisterFieldChange: (field: string, value: string) => void;
+  onLoginFieldChange: (field: string, value: string) => void;
 }
 
 export default class RegisterModel extends Component<RegisterModelProps> {
+
+ 
   render() {
-    const { handleClose, open, handleFlag, modalFlag, handleOpen } = this.props;
+    const { handleClose, open, handleFlag, modalFlag, handleOpen,registerHandler,registerState,onRegisterFieldChange,loginState,onLoginFieldChange,loginHandler,errorState } = this.props;
     return (
       <div>
         <Modal
@@ -43,7 +65,7 @@ export default class RegisterModel extends Component<RegisterModelProps> {
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
               {
-                modalFlag ? <RegisterForm /> : <LoginForm />
+                modalFlag ? <RegisterForm registerState={registerState} onRegisterFieldChange={onRegisterFieldChange} errorState={errorState}/> : <LoginForm loginState={loginState} onLoginFieldChange={onLoginFieldChange} errorState={errorState}/>
               }
             </Typography>
             {
@@ -51,14 +73,14 @@ export default class RegisterModel extends Component<RegisterModelProps> {
                 <Button
                   variant="outlined"
                   sx={{ float: 'right' }}
-                  onClick={handleClose}
+                  onClick={registerHandler}
                 >
                   Register
                 </Button> :
                 <Button
                   variant="outlined"
                   sx={{ float: 'right' }}
-                  onClick={handleClose}
+                  onClick={loginHandler}
                 >
                   Login
                 </Button>
