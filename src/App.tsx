@@ -9,7 +9,8 @@ import Product from './authentication/pages/Product';
 import ProtectedRoute from './authentication/ProtectedRoute';
 import UnAuthorize from './authentication/UnAuthorize';
 import Home from './authentication/pages/Home';
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -23,7 +24,8 @@ function App() {
           <Route path='/product' element={<ProtectedRoute component={<Product />} />} />
           <Route path='unauthorize' element={<UnAuthorize />} />
         </Routes>
-      </BrowserRouter> */}
+      </BrowserRouter>
+      <ToastContainer /> */}
     </div>
   );
 }

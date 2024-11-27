@@ -28,7 +28,7 @@ export default class ToDoListComp extends Component {
 
   componentDidMount() {
     console.log('----componentDidMount-----')
-    // this.setState({todoArr:['a','b','c','d','e','f']})
+    // this.setState({todoArr:['a','b']})
     const getItem = localStorage.getItem('todoList');
     if (getItem) {
       this.setState({
@@ -42,7 +42,7 @@ export default class ToDoListComp extends Component {
 
   shouldComponentUpdate(nextProps: Readonly<{}>, nextState: Readonly<{}>, nextContext: any): any {
     console.log('------shouldComponentUpdate----');
-    return true; 
+    return true;
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
@@ -62,13 +62,17 @@ export default class ToDoListComp extends Component {
       return;
     }
 
-    const updatedTodoArr = [...todoArr, todo];
-    this.setState({
-      todoArr: updatedTodoArr,
-      todo: '',
-    });
+    // if (this.state.todoArr.length >=2) {
+     
+      const updatedTodoArr = [...todoArr, todo];
+      this.setState({
+        todoArr: updatedTodoArr,
+        todo: '',
+      });
 
-    this.saveToLocalStorage(updatedTodoArr);
+      this.saveToLocalStorage(updatedTodoArr);
+
+    // }
   };
 
   saveToLocalStorage = (todos: string[]) => {
@@ -85,11 +89,12 @@ export default class ToDoListComp extends Component {
   }
   render() {
     console.log('-----render------')
+    
     const { todo, todoArr } = this.state;
 
     return (
       <>
-       
+
         <Box
           sx={{
             marginTop: '20px',
@@ -149,6 +154,28 @@ export default class ToDoListComp extends Component {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // 1. ComponantDidMount => when componant is render =  immediately after mounting componant that is called only once when the component is mounted in the DOM.

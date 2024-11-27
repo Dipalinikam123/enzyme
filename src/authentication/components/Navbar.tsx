@@ -7,9 +7,10 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import RegisterModel from '../modal/RegisterModel';
 import axios from 'axios';
-import { Navigate, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
-  interface MyState {
+interface MyState {
   open: boolean;
   modalFlag: boolean;
   loginState: {
@@ -28,11 +29,10 @@ import { Navigate, NavLink } from 'react-router-dom';
     emailError: boolean,
     passwordError: boolean
   };
-  token:string,
-  navigateTo: string
+  token: string,
 }
 
-export default class Navbar extends Component<{}, MyState> {
+export default class Navbar extends Component<any, MyState> {
   state: MyState = {
     open: false,
     modalFlag: false,
@@ -53,9 +53,8 @@ export default class Navbar extends Component<{}, MyState> {
       passwordError: false
     },
     token: '',
-    navigateTo: '' 
-
   };
+
 
   componentDidMount(): void {
     const storageToken = localStorage.getItem('token')
@@ -113,12 +112,12 @@ export default class Navbar extends Component<{}, MyState> {
           password: ""
         }
       })
+      window.location.href = '/';
       this.handleClose();
-      <Navigate to="/" />;
     }).catch((err) => {
       console.log("----errr", err)
-      if (err.response.data.message === "E11000 duplicate key error collection: test.users index: email_1 dup key: { email: \"abc@gmail.com\" }") {
-        alert("----User Already Register-----")
+      if (err.response.data.message.includes('email_1 dup key')) {
+        toast.error("User Already Register",{ autoClose: 1000 })
       }
     })
   }
@@ -144,17 +143,20 @@ export default class Navbar extends Component<{}, MyState> {
       console.log("--res", res)
       localStorage.setItem("token", JSON.stringify(res?.data?.token))
       this.setState({ token: res?.data?.token })
+      // console.log('-----logout',this.state.token)
+      window.location.href = '/';
       this.setState({
         loginState: {
           email: "",
           password: ""
         },
-        navigateTo: "/",
       })
       this.handleClose();
-     
+
     }).catch((err) => {
       console.log("----errr", err)
+      // alert(err.response.data.message)
+      toast.error(err?.response?.data?.message, { autoClose: 1000 });
     })
   }
 
@@ -176,8 +178,10 @@ export default class Navbar extends Component<{}, MyState> {
   };
 
   handleLogout = (): void => {
+    // console.log('-----logout',this.state.token)
     localStorage.removeItem('token')
     this.setState({ token: '' })
+    window.location.href = '/';
   }
   render() {
     console.log('---token', this.state.token)
@@ -209,7 +213,8 @@ export default class Navbar extends Component<{}, MyState> {
               >
               </IconButton>
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                News
+                <NavLink to='/' style={{ textDecoration: "none", color: 'white', fontWeight: "bold" }}>News</NavLink>
+
               </Typography>
               {
                 this.state.token && <Typography sx={{ flexGrow: 1 }}><NavLink style={{ textDecoration: "none", color: 'white', fontWeight: "bold" }} to='/product'>Product</NavLink></Typography>
