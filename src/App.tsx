@@ -11,11 +11,12 @@ import UnAuthorize from './authentication/UnAuthorize';
 import Home from './authentication/pages/Home';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import DummyApi from './authentication/DummyApi';
 
 function App() {
   return (
     <div className="App">
-      <ToDoListComp/>
+       {/* <ToDoListComp/> */}
       {/* <ApiComponent/> */}
       {/* <BrowserRouter>
         <Navbar />
@@ -26,6 +27,7 @@ function App() {
         </Routes>
       </BrowserRouter>
       <ToastContainer /> */}
+      <DummyApi/>
     </div>
   );
 }
