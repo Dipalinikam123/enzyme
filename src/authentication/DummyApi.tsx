@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { Component } from 'react'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -8,7 +7,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Container } from '@mui/material';
-
 
 interface User {
   id: number;
@@ -36,6 +34,7 @@ export default class DummyApi extends Component<{}, UserState> {
   }
 
   userApi = async () => {
+  
     try {
       
       const response = await fetch('https://fakestoreapi.com/users');

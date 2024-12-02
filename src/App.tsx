@@ -12,6 +12,9 @@ import Home from './authentication/pages/Home';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DummyApi from './authentication/DummyApi';
+import PropsData from './authentication/pages/PropsData';
+
+
 
 function App() {
   return (
@@ -27,7 +30,8 @@ function App() {
         </Routes>
       </BrowserRouter>
       <ToastContainer /> */}
-      <DummyApi/>
+      {/* <DummyApi/> */}
+      <PropsData name={'React'}/>
     </div>
   );
 }
