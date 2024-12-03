@@ -92,7 +92,7 @@ export default class RegisterModel extends Component<RegisterModelProps> {
             }
             <Button
               variant="outlined"
-              sx={{ float: 'right', marginRight: '10px' }}
+              sx={{ float: 'right', marginRight: '10px', }}
               onClick={handleClose}
             >
               Close

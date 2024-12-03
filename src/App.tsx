@@ -13,10 +13,13 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DummyApi from './authentication/DummyApi';
 import PropsData from './authentication/pages/PropsData';
+import ApiClassComp from './authentication/pages/ApiClassComp';
+import { useTheme } from '@mui/material/styles';
 
 
 
 function App() {
+  const theme=useTheme
   return (
     <div className="App">
        {/* <ToDoListComp/> */}
@@ -31,7 +34,8 @@ function App() {
       </BrowserRouter>
       <ToastContainer /> */}
       {/* <DummyApi/> */}
-      <PropsData name={'React'}/>
+      {/* <PropsData name={'React'}/> */}
+      <ApiClassComp/>
     </div>
   );
 }

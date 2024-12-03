@@ -8,4 +8,5 @@ module.exports = {
   testEnvironment: 'jsdom', // Ensure Jest uses the jsdom environment for React testing
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   
+  
 };
