@@ -1,104 +1,81 @@
-import React, { Component } from 'react';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import { FaBackward, FaPlay, FaForward } from 'react-icons/fa'; // React Icons
+import React, { useState } from 'react';
+import { Box, Typography, Button, CircularProgress, IconButton } from '@mui/material';
+import { FaTimes } from 'react-icons/fa';
 
-class ApiClassComp extends Component {
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      data: [],
-    };
-  }
+const ResponsiveBoxModal = () => {
+  const [open, setOpen] = useState(false);
 
-  componentDidMount() {
-    this.fetchProductData();
-  }
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
-  async fetchProductData() {
-    try {
-      const res = await fetch('https://spotify-downloader9.p.rapidapi.com/playlistTracks?id=7DgPQwzEoUVfQYBiMLER9Z&limit=50&offset=0', {
-        method: 'GET',
-        headers: {
-          'x-rapidapi-host': 'spotify-downloader9.p.rapidapi.com',
-          'x-rapidapi-key': '193861aaaamsh9a994df71032ce2p15f611jsn5bf77738d113',
-        },
-      });
-      const response = await res.json();
-      console.log('response--', response.data.items);
-      this.setState({ data: response.data.items });
-    } catch (error) {
-      console.log('Error fetching product', error);
-    }
-  }
+  return (
+    <>
+      <Button variant="contained" onClick={handleOpen}>
+        Open Modal
+      </Button>
 
-  render() {
-    return (
-      <Card sx={{ display: 'flex', borderRadius: 10, boxShadow: 3, overflow: 'hidden' }}>
-        <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-          <CardContent sx={{ flex: '1 0 auto' }}>
-            <Typography component="div" variant="h5" sx={{ fontWeight: 'bold', color: '#1976d2' }}>
-              Live From Space
+      {/* Modal Box */}
+      {open && (
+        <Box
+          sx={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: 'rgba(0, 0, 0, 0.5)', // Dimmed background
+            zIndex: 1000, // Make sure it overlays on top
+            padding:'10px'
+          }}
+        >
+          <Box
+            sx={{
+              width: {
+                xs: '90%', // 90% width for extra small screens
+                sm: '80%', // 80% for small screens
+                md: '70%', // 70% for medium screens
+                lg: '60%', // 60% for large screens
+              },
+              maxWidth: '600px',
+              backgroundColor: 'white',
+              borderRadius: 2,
+              boxShadow: 24,
+              p: 4,
+              position: 'relative', // For positioning close button
+            }}
+          >
+            {/* Close Button */}
+            <IconButton
+              onClick={handleClose}
+              sx={{
+                position: 'absolute',
+                top: 10,
+                right: 10,
+                color: 'gray',
+              }}
+            >
+              <FaTimes size={20} />
+            </IconButton>
+
+            <Typography variant="h6" sx={{ fontWeight: 'bold', textAlign: 'center' }}>
+              Responsive Modal Box
             </Typography>
-            <Typography variant="subtitle1" component="div" sx={{ color: '#757575' }}>
-              Mac Miller
+            <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center', mt: 2 }}>
+              This is a modal created using Box, which is responsive based on screen size.
             </Typography>
-          </CardContent>
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', p: 2 }}>
-            <IconButton
-              aria-label="previous"
-              sx={{
-                backgroundColor: 'rgba(255, 255, 255, 0.6)',
-                borderRadius: '50%',
-                padding: 2,
-                '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.9)' },
-              }}
-            >
-              <FaBackward size={20} color="#1976d2" />
-            </IconButton>
-            <IconButton
-              aria-label="play/pause"
-              sx={{
-                backgroundColor: '#1976d2',
-                borderRadius: '50%',
-                padding: 3,
-                margin: '0 20px',
-                '&:hover': { backgroundColor: '#1565c0' },
-              }}
-            >
-              <FaPlay size={20} color="white" />
-            </IconButton>
-            <IconButton
-              aria-label="next"
-              sx={{
-                backgroundColor: 'rgba(255, 255, 255, 0.6)',
-                borderRadius: '50%',
-                padding: 2,
-                '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.9)' },
-              }}
-            >
-              <FaForward size={20} color="#1976d2" />
-            </IconButton>
+            <Box display="flex" justifyContent="center" sx={{ mt: 4 }}>
+              <Button onClick={handleClose} variant="contained">
+                Close
+              </Button>
+            </Box>
           </Box>
         </Box>
-        <CardMedia
-          component="img"
-          sx={{
-            width: 151,
-            objectFit: 'cover',
-            borderRadius: 3,
-            boxShadow: 3,
-          }}
-          image="/static/images/cards/live-from-space.jpg"
-          alt="Live from space album cover"
-        />
-      </Card>
-    );
-  }
-}
+      )}
+    </>
+  );
+};
 
-export default ApiClassComp;
+export default ResponsiveBoxModal;
