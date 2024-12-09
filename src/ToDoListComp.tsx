@@ -94,7 +94,6 @@ export default class ToDoListComp extends Component {
 
     return (
       <>
-
         <Box
           sx={{
             marginTop: '20px',

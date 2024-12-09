@@ -68,9 +68,9 @@ export default class ApiComponent extends Component<{}, MyState> {
             <CardContent>
               <Typography gutterBottom  sx={{
                   color: 'text.secondary',
-                  whiteSpace: e.expanded ? 'normal' : 'nowrap',
-                  overflow: e.expanded ? 'visible' : 'hidden',
-                  textOverflow: e.expanded ? 'clip' : 'ellipsis',
+                  whiteSpace: e?.expanded ? 'normal' : 'nowrap',
+                  overflow: e?.expanded ? 'visible' : 'hidden',
+                  textOverflow: e?.expanded ? 'clip' : 'ellipsis',
                   cursor: 'pointer',
                 }}
                 onClick={() => this.toggleDescription(e.id)}>
@@ -82,13 +82,14 @@ export default class ApiComponent extends Component<{}, MyState> {
               <Typography gutterBottom >
                 Price: {e.price}
               </Typography>
-              <Typography
+              <Typography 
+                  id='description'
                 variant="body2"
                 sx={{
                   color: 'text.secondary',
-                  whiteSpace: e.expanded ? 'normal' : 'nowrap',
-                  overflow: e.expanded ? 'visible' : 'hidden',
-                  textOverflow: e.expanded ? 'clip' : 'ellipsis',
+                  whiteSpace: e?.expanded ? 'normal' : 'nowrap',
+                  overflow: e?.expanded ? 'visible' : 'hidden',
+                  textOverflow: e?.expanded ? 'clip' : 'ellipsis',
                   cursor: 'pointer',
                 }}
                 onClick={() => this.toggleDescription(e.id)}

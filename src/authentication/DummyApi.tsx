@@ -55,9 +55,9 @@ export default class DummyApi extends Component<{}, UserState> {
               <TableHead>
                 <TableRow>
                   <TableCell>Email</TableCell>
-                  <TableCell align="right">Username</TableCell>
-                  <TableCell align="right">Firstname</TableCell>
-                  <TableCell align="right">Lastname</TableCell>
+                  <TableCell align="right">User Name</TableCell>
+                  <TableCell align="right">First Name</TableCell>
+                  <TableCell align="right">Last Name</TableCell>
                   <TableCell align="right">Phone</TableCell>
                 </TableRow>
               </TableHead>

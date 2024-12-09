@@ -1,12 +1,12 @@
 module.exports = {
   transform: {
-    '^.+\\.(ts|tsx|js|jsx)$': 'babel-jest', // Transform TypeScript and JavaScript files using Babel
+    '^.+\\.(ts|tsx|js|jsx)$': 'babel-jest', 
   },
   transformIgnorePatterns: [
-    '/node_modules/(?!axios|@mui)/', // Don't ignore axios and @mui (Material UI) when transforming
+    '/node_modules/(?!axios|@mui)/', 
   ],
-  testEnvironment: 'jsdom', // Ensure Jest uses the jsdom environment for React testing
+  testEnvironment: 'jsdom',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-  
+  setupFilesAfterEnv: ['./enzyme.setup.js'],
   
 };

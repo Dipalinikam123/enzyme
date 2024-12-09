@@ -15,6 +15,7 @@ import DummyApi from './authentication/DummyApi';
 import PropsData from './authentication/pages/PropsData';
 import ApiClassComp from './authentication/pages/ApiClassComp';
 import { useTheme } from '@mui/material/styles';
+import AddUser from './AddUser';
 
 
 
@@ -23,7 +24,7 @@ function App() {
   return (
     <div className="App">
        {/* <ToDoListComp/> */}
-      {/* <ApiComponent/> */}
+      <ApiComponent/>
       {/* <BrowserRouter>
         <Navbar />
         <Routes>
@@ -35,7 +36,8 @@ function App() {
       <ToastContainer /> */}
       {/* <DummyApi/> */}
       {/* <PropsData name={'React'}/> */}
-      <ApiClassComp/>
+      {/* <ApiClassComp/> */}
+      {/* <AddUser/> */}
     </div>
   );
 }

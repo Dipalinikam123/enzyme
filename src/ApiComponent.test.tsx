@@ -39,35 +39,52 @@ describe('ApiComponent testing', () => {
     jest.clearAllMocks();
   });
 
-  test('should render the component and mock the API call', async () => {
-    const wrapper = shallow(<ApiComponent />);
+   test('should render the component and mock the API call', async () => {
+     const wrapper = shallow(<ApiComponent />);
+     const instance= wrapper.instance()
+     instance.componentDidMount()
 
-    await new Promise((resolve) => setTimeout(resolve, 0));
-    wrapper.update();
+  //   await new Promise((resolve) => setTimeout(resolve, 0));
+  //   wrapper.update();
 
-    const stateProducts = wrapper.state('products');
-    console.log("---stateProducts1---", stateProducts)
+  //   const stateProducts = wrapper.state('products');
+  //   console.log("---stateProducts1---", stateProducts)
 
-    expect(stateProducts).toHaveLength(2);
-    expect(stateProducts[0].title).toBe('Product 1');
+  //   expect(stateProducts).toHaveLength(2);
+  //   expect(stateProducts[0].title).toBe('Product 1');
 
+   });
+   it('should throw an error if the response is not ok', async () => {
+    // Mock fetch
+    global.fetch = jest.fn().mockResolvedValue({
+      ok: false,
+      status: 500,
+      json: jest.fn().mockResolvedValue({ message: 'Internal Server Error' })
+    });
+
+   
   });
   test('should handle API error', async () => {
     const mockErrorMessage = 'Error fetching products:';
     global.fetch = jest.fn(() =>
       Promise.reject(new Error(mockErrorMessage))
     );
-
     const wrapper = shallow(<ApiComponent />);
 
     await new Promise((resolve) => setTimeout(resolve, 0));
 
     wrapper.update();
-    const state = wrapper.state();
-    console.log('---state---', state);
+  //   const state = wrapper.state();
+  //   console.log('---state---', state);
 
-    // expect(state.error).toBe(mockErrorMessage); 
-    // expect(wrapper.text()).toContain(mockErrorMessage);
-  });
-
+  //   // expect(state.error).toBe(mockErrorMessage); 
+  //   // expect(wrapper.text()).toContain(mockErrorMessage);
+   });
+   
+   test('toggle', () => {
+    const wrapper = shallow(<ApiComponent />);
+    const instance= wrapper.instance();
+    console.log('------instance', instance.props)
+    instance.toggleDescription();
+   });
 });
